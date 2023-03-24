@@ -9,7 +9,11 @@ public class ElementoBibliotecario {
     public LocalDate annoDiPubblicazione;
     public int numeroPagine;
     public ElementoBibliotecario(String ISBN, String tit, LocalDate anno, int pag) {
-        this.codiceISBN = ISBN;
+        if (Main.controlloISBN(ISBN)) {
+            this.codiceISBN = ISBN;
+        } else {
+            System.out.println("Il codice ISBN è già inserito. Riprova!");
+        }
         this.titolo = tit;
         this.annoDiPubblicazione = anno;
         this.numeroPagine = pag;

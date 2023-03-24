@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class Main {
     public static List<ElementoBibliotecario> archivio = new ArrayList<>();
     public static Scanner scanner = new Scanner(System.in);
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Libri L1 = new Libri("L21", "Imparare Java", LocalDate.of(2000,1,1),912, "Mario Rossi", "Commedia");
         Libri L2 = new Libri("L18", "Imparare Java in giapponese",LocalDate.of(2015,1,1) ,213, "Unamoto Guidamoto", "Horror");
         Libri L3 = new Libri("L45", "Il signore degli Stream", LocalDate.of(2015,1,1),123, "Mark Zuckemberg", "Fantasy");
@@ -32,7 +32,6 @@ public class Main {
         aggiungiAdArchivio(R3);
         aggiungiAdArchivio(R4);
         aggiungiAdArchivio(R5);
-
         while(true) {
             System.out.println("1 per mostrare cosa hai aggiunto");
             System.out.println("2 per rimuovere un elemento");
@@ -41,6 +40,8 @@ public class Main {
             System.out.println("5 per ricercare per autore");
             System.out.println("6 per aggiungere un libro");
             System.out.println("7 per aggiungere una rivista");
+            System.out.println("8 per salvare i dati su file");
+            System.out.println("9 per caricare un file");
             System.out.println("Scegli cosa fare");
             int scelta = scanner.nextInt();
             switch (scelta) {
@@ -102,7 +103,7 @@ public class Main {
                     int pagineRivista = scanner.nextInt();
                     System.out.println("Inserisci che tipo di periodico è: 1-Settimanale, 2-Mensile, 3-Semestrale");
                     Periodicità periodicità = null;
-                    int scannerPeriodo = -1;
+                    int scannerPeriodo = 0;
                     do {
                         scannerPeriodo = scanner.nextInt();
                         switch (scannerPeriodo) {
@@ -121,11 +122,22 @@ public class Main {
                     Riviste R = new Riviste(ISBNRivista, titoloRivista, LocalDate.of(annoRivista, meseRivista, giornoRivista), pagineRivista, periodicità);
                     aggiungiAdArchivio(R);
                     break;
+                case 8:
+                    System.out.println("Con quale nome vuoi salvare il file?");
+                    String nomeFile = scanner.next();
+                    scriviFile(nomeFile);
+                    break;
+                case 9:
+                    System.out.println("Quale file vuoi caricare?");
+                    String nomeFileDaLeggere = scanner.next();
+                    leggiFile(nomeFileDaLeggere);
+                    break;
                 default: System.exit(0);
             }
 
         }
     }
+
     public static void aggiungiAdArchivio (ElementoBibliotecario elem) {
         archivio.add(elem);
     }
@@ -133,11 +145,12 @@ public class Main {
     public static void caricaArchivio () {
         System.out.println("Questi sono tutti gli elementi dentro l'archivio:");
         for (int i = 0; i < archivio.size(); i++) {
-           // if (archivio instanceof Libri) {
-                System.out.println("ISBN: " + archivio.get(i).codiceISBN + " " + "Titolo: " + archivio.get(i).titolo + " " + "Pubblicato il : " + archivio.get(i).annoDiPubblicazione);
-         //   } else if (archivio instanceof Riviste) {
-              //  System.out.println("ISBN: " + archivio.get(i).codiceISBN + " " + "Titolo: " + archivio.get(i).titolo + " " + "Pubblicato il : " + archivio.get(i).annoDiPubblicazione + " ");
-         //   }
+            System.out.println("ISBN: " + archivio.get(i).codiceISBN + " " + "Titolo: " + archivio.get(i).titolo + " " + "Pubblicato il : " + archivio.get(i).annoDiPubblicazione);
+           /* if (archivio instanceof Libri) {
+                System.out.print((Libri) ((Libri) archivio.get(i)).autore);
+           } else if (archivio instanceof Riviste) {
+              System.out.println("ISBN: " + archivio.get(i).codiceISBN + " " + "Titolo: " + archivio.get(i).titolo + " " + "Pubblicato il : " + archivio.get(i).annoDiPubblicazione + " ");
+          }*/
         }
     }
     public static void rimuoviElemento (String s) {
@@ -164,21 +177,28 @@ public class Main {
                 .filter(libri -> ((Libri) libri).autore.toLowerCase().contains(aut.toLowerCase()))
                 .forEach(x-> System.out.println("Elemento ricercato per AUTORE: Il titolo è... " + x.titolo.toString()));
     }
-    /*public static void leggiEScriviIlfile(String nomeFile) {
+    public static void scriviFile(String nomeFile) throws Exception, IOException {
+        File file = new File(nomeFile);
         try {
-            File file = new File(nomeFile);
-            String leggi = FileUtils.readFileToString(file, "UTF-8");
-
-            String [] caratteri = leggi.split(", ");
-
-            for (String car : caratteri) {
-            }
+            FileUtils.writeStringToFile(file, archivio.toString(), "UTF-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void leggiFile(String nomeFile) throws Exception {
+        try{
+        File file = new File(nomeFile);
+        String fileInput = FileUtils.readFileToString(file, "UTF-8");
+        System.out.println(fileInput);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-    }*/
+    }
 
-
-
-
+    public static boolean controlloISBN (String isbn) {
+        boolean esiste = archivio.stream().anyMatch(x -> x.codiceISBN == isbn);
+        return esiste;
+    }
 
 }
