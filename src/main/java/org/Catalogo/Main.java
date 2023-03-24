@@ -189,11 +189,10 @@ public class Main {
         try{
         File file = new File(nomeFile);
         String fileInput = FileUtils.readFileToString(file, "UTF-8");
-        System.out.println(fileInput);
+        System.out.println(fileInput.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public static boolean controlloISBN (String isbn) {
