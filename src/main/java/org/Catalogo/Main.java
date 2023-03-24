@@ -1,5 +1,6 @@
 package org.Catalogo;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class Main {
             System.out.println("7 per aggiungere una rivista");
             System.out.println("8 per salvare i dati su file");
             System.out.println("9 per caricare un file");
+            System.out.println("Seleziona 0 per uscire!");
             System.out.println("Scegli cosa fare");
             int scelta = scanner.nextInt();
             switch (scelta) {
@@ -179,11 +181,20 @@ public class Main {
     }
     public static void scriviFile(String nomeFile) throws Exception, IOException {
         File file = new File(nomeFile);
+        List<String> contenuti = new ArrayList<String>();
         try {
-            FileUtils.writeStringToFile(file, archivio.toString(), "UTF-8");
-        } catch (IOException e) {
-            e.printStackTrace();
+            for (int i = 0; i < archivio.size(); i++) {
+               if (archivio.get(i) instanceof Libri) {
+                   contenuti.add("ISBN: "+archivio.get(i).codiceISBN+ " Titolo: "+ archivio.get(i).titolo + " Anno di Pubblicazione: " + archivio.get(i).annoDiPubblicazione+" Numero Pagine: " +archivio.get(i).numeroPagine + " Autore: " + ((Libri) archivio.get(i)).autore + " Genere: " + ((Libri) archivio.get(i)).genere);
+               } else if (archivio.get(i) instanceof Riviste) {
+                   contenuti.add("ISBN: "+archivio.get(i).codiceISBN+ " Titolo: "+ archivio.get(i).titolo + " Anno di Pubblicazione: " + archivio.get(i).annoDiPubblicazione+" Numero Pagine: " +archivio.get(i).numeroPagine + " Periodicità: " + String.valueOf(((Riviste) archivio.get(i)).periodicità));
+               }
+            }
+            FileUtils.writeLines(file, contenuti);
+        } catch (Exception e) {
+            e.getStackTrace();
         }
+        ;
     }
     public static void leggiFile(String nomeFile) throws Exception {
         try{
@@ -195,9 +206,5 @@ public class Main {
         }
     }
 
-    public static boolean controlloISBN (String isbn) {
-        boolean esiste = archivio.stream().anyMatch(x -> x.codiceISBN == isbn);
-        return esiste;
-    }
 
 }

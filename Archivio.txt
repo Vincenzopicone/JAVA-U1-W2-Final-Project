@@ -1,1 +1,0 @@
-[org.Catalogo.Libri@4e50df2e, org.Catalogo.Libri@1d81eb93, org.Catalogo.Libri@7291c18f, org.Catalogo.Libri@34a245ab, org.Catalogo.Libri@7cc355be, org.Catalogo.Riviste@6e8cf4c6, org.Catalogo.Riviste@12edcd21, org.Catalogo.Riviste@34c45dca, org.Catalogo.Riviste@52cc8049, org.Catalogo.Riviste@5b6f7412]

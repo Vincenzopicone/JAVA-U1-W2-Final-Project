@@ -1,0 +1,10 @@
+ISBN: L21 Titolo: Imparare Java Anno di Pubblicazione2000-01-01 Numero Pagine: 912 Autore: Mario Rossi Genere: Commedia
+ISBN: L18 Titolo: Imparare Java in giapponese Anno di Pubblicazione2015-01-01 Numero Pagine: 213 Autore: Unamoto Guidamoto Genere: Horror
+ISBN: L45 Titolo: Il signore degli Stream Anno di Pubblicazione2015-01-01 Numero Pagine: 123 Autore: Mark Zuckemberg Genere: Fantasy
+ISBN: L92 Titolo: Titolo 4 Anno di Pubblicazione2002-01-01 Numero Pagine: 144 Autore: Sconosciuto di nome Genere: Commedia
+ISBN: L56 Titolo: Calcio Anno di Pubblicazione1952-01-01 Numero Pagine: 365 Autore: Alessandro Del Piero Genere: Sport
+ISBN: R50 Titolo: Gazzetta dello Sport Anno di Pubblicazione1982-01-01 Numero Pagine: 56 Periodicità: SEMESTRALE
+ISBN: R21 Titolo: TuttoSport Anno di Pubblicazione1952-01-01 Numero Pagine: 26 Periodicità: SEMESTRALE
+ISBN: R65 Titolo: RivistaSpace Anno di Pubblicazione1962-01-01 Numero Pagine: 656 Periodicità: SEMESTRALE
+ISBN: R32 Titolo: Pesca Anno di Pubblicazione1952-01-01 Numero Pagine: 220 Periodicità: SEMESTRALE
+ISBN: R45 Titolo: Caccia Anno di Pubblicazione1988-01-01 Numero Pagine: 751 Periodicità: SEMESTRALE
