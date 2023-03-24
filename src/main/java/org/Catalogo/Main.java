@@ -34,6 +34,7 @@ public class Main {
         aggiungiAdArchivio(R4);
         aggiungiAdArchivio(R5);
         while(true) {
+            System.out.println("------------------------------------");
             System.out.println("1 per mostrare cosa hai aggiunto");
             System.out.println("2 per rimuovere un elemento");
             System.out.println("3 per ricercare per anno");
@@ -44,6 +45,7 @@ public class Main {
             System.out.println("8 per salvare i dati su file");
             System.out.println("9 per caricare un file");
             System.out.println("Seleziona 0 per uscire!");
+            System.out.println("------------------------------------");
             System.out.println("Scegli cosa fare");
             int scelta = scanner.nextInt();
             switch (scelta) {
@@ -145,14 +147,11 @@ public class Main {
     }
 
     public static void caricaArchivio () {
+        System.out.println("------------------------------------");
         System.out.println("Questi sono tutti gli elementi dentro l'archivio:");
+        System.out.println("------------------------------------");
         for (int i = 0; i < archivio.size(); i++) {
-            System.out.println("ISBN: " + archivio.get(i).codiceISBN + " " + "Titolo: " + archivio.get(i).titolo + " " + "Pubblicato il : " + archivio.get(i).annoDiPubblicazione);
-           /* if (archivio instanceof Libri) {
-                System.out.print((Libri) ((Libri) archivio.get(i)).autore);
-           } else if (archivio instanceof Riviste) {
-              System.out.println("ISBN: " + archivio.get(i).codiceISBN + " " + "Titolo: " + archivio.get(i).titolo + " " + "Pubblicato il : " + archivio.get(i).annoDiPubblicazione + " ");
-          }*/
+            System.out.println("ISBN: " + archivio.get(i).codiceISBN + " " + "Titolo: " + archivio.get(i).titolo + " " + "Pubblicato il : " + archivio.get(i).annoDiPubblicazione.getYear());
         }
     }
     public static void rimuoviElemento (String s) {
@@ -162,22 +161,24 @@ public class Main {
         archivio = archivioStream;
         System.out.println("Elemento cancellato");
     }
-
     public static void ricercaISBN (String s) {
         archivio.stream()
                 .filter(x -> x.codiceISBN.toLowerCase().equals(s.toLowerCase()))
                 .forEach(x-> System.out.println("Elemento ricercato per ISBN: Il titolo è... " + x.titolo.toString()));
+        System.out.println("------------------------------------");
     }
     public static void ricercaPerAnno (Long date) {
         archivio.stream()
                 .filter(x -> x.annoDiPubblicazione.getYear() == date)
                 .forEach(x-> System.out.println("Elemento ricercato per ANNO: Il titolo è...  " + x.titolo.toString()));
+        System.out.println("------------------------------------");
     }
     public static void ricercaPerAutore (String aut) {
         archivio.stream()
                 .filter(x -> x instanceof Libri)
                 .filter(libri -> ((Libri) libri).autore.toLowerCase().contains(aut.toLowerCase()))
                 .forEach(x-> System.out.println("Elemento ricercato per AUTORE: Il titolo è... " + x.titolo.toString()));
+        System.out.println("------------------------------------");
     }
     public static void scriviFile(String nomeFile) throws Exception, IOException {
         File file = new File(nomeFile);
@@ -185,16 +186,15 @@ public class Main {
         try {
             for (int i = 0; i < archivio.size(); i++) {
                if (archivio.get(i) instanceof Libri) {
-                   contenuti.add("ISBN: "+archivio.get(i).codiceISBN+ " Titolo: "+ archivio.get(i).titolo + " Anno di Pubblicazione: " + archivio.get(i).annoDiPubblicazione+" Numero Pagine: " +archivio.get(i).numeroPagine + " Autore: " + ((Libri) archivio.get(i)).autore + " Genere: " + ((Libri) archivio.get(i)).genere);
+                   contenuti.add("ISBN: "+archivio.get(i).codiceISBN+ " Titolo: "+ archivio.get(i).titolo + " Anno di Pubblicazione: " + archivio.get(i).annoDiPubblicazione.getYear()+" Numero Pagine: " +archivio.get(i).numeroPagine + " Autore: " + ((Libri) archivio.get(i)).autore + " Genere: " + ((Libri) archivio.get(i)).genere);
                } else if (archivio.get(i) instanceof Riviste) {
-                   contenuti.add("ISBN: "+archivio.get(i).codiceISBN+ " Titolo: "+ archivio.get(i).titolo + " Anno di Pubblicazione: " + archivio.get(i).annoDiPubblicazione+" Numero Pagine: " +archivio.get(i).numeroPagine + " Periodicità: " + String.valueOf(((Riviste) archivio.get(i)).periodicità));
+                   contenuti.add("ISBN: "+archivio.get(i).codiceISBN+ " Titolo: "+ archivio.get(i).titolo + " Anno di Pubblicazione: " + archivio.get(i).annoDiPubblicazione.getYear()+" Numero Pagine: " +archivio.get(i).numeroPagine + " Periodicità: " + String.valueOf(((Riviste) archivio.get(i)).periodicità));
                }
             }
             FileUtils.writeLines(file, contenuti);
         } catch (Exception e) {
             e.getStackTrace();
-        }
-        ;
+        };
     }
     public static void leggiFile(String nomeFile) throws Exception {
         try{
@@ -205,6 +205,4 @@ public class Main {
             e.printStackTrace();
         }
     }
-
-
 }
